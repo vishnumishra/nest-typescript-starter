@@ -22,8 +22,8 @@ export class CompaniesService {
     });
   }
 
-  findAll() {
-    return this.companyModel.findAll();
+  findAll(name: string) {
+    return this.companyModel.findAll({ where: { name } });
   }
 
   findOne(id: string) {
