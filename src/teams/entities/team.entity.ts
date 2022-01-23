@@ -1,4 +1,5 @@
-import { Column, CreatedAt, DeletedAt, ForeignKey, Model, PrimaryKey, Table, UpdatedAt } from 'sequelize-typescript';
+import { UUIDV4 } from 'sequelize';
+import { Column, CreatedAt, DeletedAt, ForeignKey, IsUUID, Model, PrimaryKey, Table, UpdatedAt } from 'sequelize-typescript';
 import { Company } from 'src/companies/entities/company.entity';
 
 @Table({
@@ -6,7 +7,9 @@ import { Company } from 'src/companies/entities/company.entity';
     tableName: 'companies',
 })
 export class Team extends Model {
+    @IsUUID(4)
     @PrimaryKey
+    @Column
     uuid: string;
 
     @ForeignKey(() => Company)
@@ -14,5 +17,14 @@ export class Team extends Model {
 
     @Column
     teamleadName: string;
+
+    @CreatedAt
+    creationDate: Date;
+  
+    @UpdatedAt
+    updatedOn: Date;
+  
+    @DeletedAt
+    deletionDate: Date;
 }
 
