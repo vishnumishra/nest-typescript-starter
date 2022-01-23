@@ -13,7 +13,13 @@ export class CompaniesService {
   ) { }
 
   create(createCompanyDto: CreateCompanyDto) {
-    
+    return this.companyModel.create({
+      name: createCompanyDto.name,
+      address: createCompanyDto.address,
+      ceo: createCompanyDto.ceo,
+      email: createCompanyDto.email,
+      inceptionDate: createCompanyDto.inceptionDate,
+    });
   }
 
   findAll() {
