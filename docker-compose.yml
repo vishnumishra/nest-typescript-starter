@@ -1,38 +1,45 @@
 version: "3.7"
 
 services:
+
   backend:
     container_name: myapp_backend
     restart: always
-    build: .
+    build: ./src
     environment:
       - APP_ENV=development
-      - APP_PORT=9000
+      - APP_PORT=${PORT}
     volumes:
-      - ./src:/var/www/myapp/src
-      - ./test:/var/www/myapp/test
-    working_dir: /var/www/myapp
-    ports:
-      - "9001:9000"
+      - ./src:/var/www/backend/src
+      - ./test:/var/www/backend/test
+    working_dir: /var/www/backend
     links:
-      - mysql
+      - mysql:${MYSQL_HOST}
       - redis
     depends_on:
       - mysql
       - redis
-  mysql: # Example Service
-    container_name: myapp_mysql
-    restart: always
-    image: mysql:5.7
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=myapp
-      - MYSQL_PASSWORD=myapp
-      - MYSQL_DATABASE=myapp_docker
     ports:
-    - "3308:3306"
+      - "${PORT}:${PORT}"
+    expose:
+      - "${PORT}"
+    env_file: .env
+
+  mysql:
+    build: ./database
+    image: mysql:5.7
+    container_name: ${MYSQL_HOST}
     volumes:
-    - myapp_mysql_data:/var/lib/mysql
+      - ./database/data:/var/lib/mysql
+    ports:
+      - "${MYSQL_PORT}:${MYSQL_PORT}"
+    environment:
+      MYSQL_TCP_PORT: ${MYSQL_PORT}
+      MYSQL_USER: ${MYSQL_USERNAME}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+
   redis: # Example Service
     container_name: myapp_redis
     restart: always
@@ -46,7 +53,5 @@ volumes:
   myapp_mysql_data:
   myapp_redis_data:
 
-networks:
-  default:
-    external:
-      name: myapp
+# networks:
+    # name: myapp
