@@ -2,7 +2,11 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
+import { CompaniesModule } from './companies/companies.module';
+import { TeamsModule } from './teams/teams.module';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { Company } from './companies/entities/company.entity';
+import { Team } from './teams/entities/team.entity';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -21,4 +25,4 @@ import { SequelizeModule } from '@nestjs/sequelize';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
