@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Team } from 'src/teams/entities/team.entity';
 
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
@@ -24,6 +25,10 @@ export class CompaniesService {
 
   findAll(name: string) {
     return this.companyModel.findAll({ where: { name } });
+  }
+
+  teams(id: string) {
+    return this.companyModel.findAll({ where: { id }, include: [Team] });
   }
 
   findOne(id: string) {
