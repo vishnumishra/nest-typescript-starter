@@ -11,7 +11,7 @@ export class Company extends Model {
     @PrimaryKey
     @Default(UUIDV4)
     @Column
-    uuid: string;
+    id: string;
 
     @Column
     name: string;

@@ -10,7 +10,7 @@ export class Team extends Model {
     @IsUUID(4)
     @PrimaryKey
     @Column
-    uuid: string;
+    id: string;
 
     @ForeignKey(() => Company)
     companyId: string;

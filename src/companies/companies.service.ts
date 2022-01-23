@@ -23,11 +23,11 @@ export class CompaniesService {
   }
 
   findAll() {
-    return `This action returns all companies`;
+    return this.companyModel.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} company`;
+  findOne(id: string) {
+    return this.companyModel.findOne({ where: { id } });
   }
 
   update(id: number, updateCompanyDto: UpdateCompanyDto) {

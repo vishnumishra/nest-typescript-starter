@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsUUID } from "class-validator";
 
 export class CreateCompanyDto {
-
+    readonly id: string;
     @IsNotEmpty()
     readonly email: string;
 
