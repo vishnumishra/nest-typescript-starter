@@ -8,6 +8,7 @@ import { Company } from './entities/company.entity';
 @Module({
   imports: [SequelizeModule.forFeature([Company])],
   controllers: [CompaniesController],
-  providers: [CompaniesService]
+  providers: [CompaniesService],
+  exports:[SequelizeModule]
 })
 export class CompaniesModule {}

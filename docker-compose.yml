@@ -1,11 +1,15 @@
-version: "3.7"
+version: "3.8"
+
+networks:
+  my-app-net:
+    driver: bridge
 
 services:
 
   backend:
     container_name: myapp_backend
     restart: always
-    build: ./src
+    build: .
     environment:
       - APP_ENV=development
       - APP_PORT=${PORT}
@@ -14,7 +18,7 @@ services:
       - ./test:/var/www/backend/test
     working_dir: /var/www/backend
     links:
-      - mysql:${MYSQL_HOST}
+      - mysql
       - redis
     depends_on:
       - mysql
@@ -24,13 +28,14 @@ services:
     expose:
       - "${PORT}"
     env_file: .env
+    networks:
+      - my-app-net
 
   mysql:
-    build: ./database
     image: mysql:5.7
     container_name: ${MYSQL_HOST}
     volumes:
-      - ./database/data:/var/lib/mysql
+      - myapp_mysql_data:/var/lib/mysql
     ports:
       - "${MYSQL_PORT}:${MYSQL_PORT}"
     environment:
@@ -39,8 +44,11 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
+    networks:
+      - my-app-net
 
-  redis: # Example Service
+  redis:
+    # Example Service
     container_name: myapp_redis
     restart: always
     image: redis:6.0-alpine
@@ -48,10 +56,8 @@ services:
       - "6379"
     volumes:
       - myapp_redis_data:/data
-
+    networks:
+      - my-app-net
 volumes:
   myapp_mysql_data:
   myapp_redis_data:
-
-# networks:
-    # name: myapp

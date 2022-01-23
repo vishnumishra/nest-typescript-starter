@@ -1,9 +1,8 @@
 # Env files
-.env
+# .env
 
 # Compiled output
 /dist
-/database
 /dist-seeder
 /node_modules
 
