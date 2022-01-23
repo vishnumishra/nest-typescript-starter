@@ -22,8 +22,7 @@ import { Team } from './teams/entities/team.entity';
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE,
     models: [Company, Team],
-  }),
-    CompaniesModule, TeamsModule],
+  }), CompaniesModule, TeamsModule],
   controllers: [AppController],
   providers: [AppService],
 })
