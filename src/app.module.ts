@@ -7,6 +7,7 @@ import { TeamsModule } from './teams/teams.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Company } from './companies/entities/company.entity';
 import { Team } from './teams/entities/team.entity';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [ConfigModule.forRoot({
     envFilePath: '.env',
@@ -22,7 +23,7 @@ import { Team } from './teams/entities/team.entity';
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE,
     models: [Company, Team],
-  }), CompaniesModule, TeamsModule],
+  }), CompaniesModule, TeamsModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
