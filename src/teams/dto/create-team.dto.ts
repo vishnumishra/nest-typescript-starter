@@ -5,7 +5,7 @@ export class CreateTeamDto {
     readonly id: string;
 
     @IsNotEmpty()
-    readonly companyId: string;
+    companyId: string;
 
     @IsNotEmpty()
     readonly teamleadName: string;
