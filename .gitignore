@@ -394,6 +394,6 @@ Temporary Items
 
 =======
 # Local
-.env
+# .env  //For testing/development this is added in production it should not be commited to git
 dist
 database
